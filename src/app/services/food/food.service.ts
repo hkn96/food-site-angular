@@ -2,17 +2,20 @@ import { Injectable } from '@angular/core';
 import { Food } from 'src/app/shared/models/Food';
 import { Tag } from 'src/app/shared/models/Tag';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FoodService {
+  constructor() {}
 
-  constructor() { }
+  getFoodById(id: number): Food {
+    return this.getAll().find(food => food.id == id)!;
+  }
 
-  getAllFoodsBySearchTerm(searchTerm:string) :Food[]{
-    return  this.getAll().filter(food =>
-      food.name.toLowerCase().includes(searchTerm.toLowerCase()));
+  getAllFoodsBySearchTerm(searchTerm: string): Food[] {
+    return this.getAll().filter(food =>
+      food.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
   }
 
   getAll(): Food[] {
@@ -36,7 +39,7 @@ export class FoodService {
         favorite: true,
         origins: ['persia', 'middle east', 'china'],
         stars: 4.7,
-        imageUrl:  '/assets/images/food-2.jpg',
+        imageUrl: '/assets/images/food-2.jpg',
         tags: ['SlowFood', 'Lunch'],
       },
       {
@@ -47,7 +50,7 @@ export class FoodService {
         favorite: false,
         origins: ['germany', 'us'],
         stars: 3.5,
-        imageUrl:  '/assets/images/food-3.jpg',
+        imageUrl: '/assets/images/food-3.jpg',
         tags: ['FastFood', 'Hamburger'],
       },
       {
@@ -58,7 +61,7 @@ export class FoodService {
         favorite: true,
         origins: ['belgium', 'france'],
         stars: 3.3,
-        imageUrl:  '/assets/images/food-4.jpg',
+        imageUrl: '/assets/images/food-4.jpg',
         tags: ['FastFood', 'Fry'],
       },
       {
@@ -69,7 +72,7 @@ export class FoodService {
         favorite: false,
         origins: ['india', 'asia'],
         stars: 3.0,
-        imageUrl:  '/assets/images/food-5.jpg',
+        imageUrl: '/assets/images/food-5.jpg',
         tags: ['SlowFood', 'Soup'],
       },
       {
@@ -80,16 +83,16 @@ export class FoodService {
         favorite: false,
         origins: ['italy'],
         stars: 4.0,
-        imageUrl:  '/assets/images/food-6.jpg',
+        imageUrl: '/assets/images/food-6.jpg',
         tags: ['FastFood', 'Pizza', 'Lunch'],
       },
     ];
   }
 
   getAllFoodsByTag(tag: string): Food[] {
-    return tag == "All" ?
-      this.getAll() :
-      this.getAll().filter(food => food.tags?.includes(tag));
+    return tag == 'All'
+      ? this.getAll()
+      : this.getAll().filter(food => food.tags?.includes(tag));
   }
 
   getAllTags(): Tag[] {
